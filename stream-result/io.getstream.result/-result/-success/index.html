@@ -1,0 +1,372 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Success</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+<a href="../../../../index.html">
+<span>stream-result</span>            </a>    </div>
+    <div>1.0.0
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":stream-result:dokkaHtmlPartial/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="stream-result::io.getstream.result/Result.Success///PointingToDeclaration//-1158666736">
+  <div class="breadcrumbs"><a href="../../../index.html">stream-result</a><span class="delimiter">/</span><a href="../../index.html">io.getstream.result</a><span class="delimiter">/</span><a href="../index.html">Result</a><span class="delimiter">/</span><span class="current">Success</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Success</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Success</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="index.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="index.html">A</a></span></span><span class="token punctuation">)</span> : <a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">A</a><span class="token operator">&gt; </span></div><p class="paragraph">Represents successful result.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>value</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The <a href="index.html">A</a> data associated with the result.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1257416722%2FConstructors%2F-1158666736" anchor-label="Success" id="1257416722%2FConstructors%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-success.html"><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1257416722%2FConstructors%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="index.html">A</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1282891305%2FProperties%2F-1158666736" anchor-label="value" id="-1282891305%2FProperties%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1282891305%2FProperties%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="index.html">A</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Inherited properties</h2>
+        <div class="table"><a data-name="-1345957699%2FProperties%2F-1158666736" anchor-label="isFailure" id="-1345957699%2FProperties%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-failure.html"><span>is</span><wbr><span><span>Failure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1345957699%2FProperties%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../is-failure.html">isFailure</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check if the result is a <a href="../-failure/index.html">Failure</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="179391588%2FProperties%2F-1158666736" anchor-label="isSuccess" id="179391588%2FProperties%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-success.html"><span>is</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="179391588%2FProperties%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../is-success.html">isSuccess</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Checks if the result is a <a href="index.html">Success</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Inherited functions</h2>
+        <div class="table"><a data-name="-1216208936%2FFunctions%2F-1158666736" anchor-label="flatMap" id="-1216208936%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../flat-map.html"><span>flat</span><wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1216208936%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../flat-map.html">C</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../flat-map.html"><span class="token function">flatMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../flat-map.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map.html">C</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map.html">C</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a transformed <a href="../index.html">Result</a> from results of the <a href="../../flat-map.html">f</a> if the <a href="../index.html">Result</a> contains a successful data payload. Returns an original <a href="../index.html">Result</a> if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1202726655%2FFunctions%2F-1158666736" anchor-label="flatMapSuspend" id="1202726655%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../flat-map-suspend.html"><span>flat</span><wbr><span>Map</span><wbr><span><span>Suspend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1202726655%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map-suspend.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../flat-map-suspend.html">C</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map-suspend.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../flat-map-suspend.html"><span class="token function">flatMapSuspend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../flat-map-suspend.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map-suspend.html">C</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../flat-map-suspend.html">C</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a transformed <a href="../index.html">Result</a> from results of the suspending <a href="../../flat-map-suspend.html">f</a> if the <a href="../index.html">Result</a> contains a successful data payload. Returns an original <a href="../index.html">Result</a> if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="935856317%2FFunctions%2F-1158666736" anchor-label="getOrNull" id="935856317%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-null.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="935856317%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../get-or-null.html"><span class="token function">getOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">A</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the encapsulated value if this instance represents <a href="../is-success.html">Success</a> or <code class="lang-kotlin">null</code> if it is <a href="../is-failure.html">Failure</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1641040848%2FFunctions%2F-1158666736" anchor-label="getOrThrow" id="1641040848%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-throw.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1641040848%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../get-or-throw.html"><span class="token function">getOrThrow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">A</a></div><div class="brief "><p class="paragraph">Returns the encapsulated value if this instance represents <a href="../is-success.html">Success</a> or throws the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a> exception if it is <a href="../is-failure.html">Failure</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="180147745%2FFunctions%2F-1158666736" anchor-label="map" id="180147745%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map.html"><span><span>map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="180147745%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../map.html">C</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../map.html"><span class="token function">map</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../map.html">C</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../map.html">C</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a transformed <a href="../index.html">Result</a> of applying the given <a href="../map.html">f</a> function if the <a href="../index.html">Result</a> contains a successful data payload. Returns an original <a href="../index.html">Result</a> if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-374138532%2FFunctions%2F-1158666736" anchor-label="mapSuspend" id="-374138532%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-suspend.html"><span>map</span><wbr><span><span>Suspend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-374138532%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../map-suspend.html">C</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../map-suspend.html"><span class="token function">mapSuspend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>f<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../map-suspend.html">C</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../map-suspend.html">C</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a transformed <a href="../index.html">Result</a> of applying the given suspending <a href="../map-suspend.html">f</a> function if the <a href="../index.html">Result</a> contains a successful data payload. Returns an original <a href="../index.html">Result</a> if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="52265598%2FFunctions%2F-1158666736" anchor-label="onError" id="52265598%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-error.html"><span>on</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="52265598%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../on-error.html"><span class="token function">onError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>errorSideEffect<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../-stream-error/index.html">StreamError</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-error.html">errorSideEffect</a> lambda function if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1996374175%2FFunctions%2F-1158666736" anchor-label="onErrorSuspend" id="1996374175%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../on-error-suspend.html"><span>on</span><wbr><span>Error</span><wbr><span><span>Suspend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1996374175%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-error-suspend.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-error-suspend.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../on-error-suspend.html"><span class="token function">onErrorSuspend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>errorSideEffect<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../-stream-error/index.html">StreamError</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-error-suspend.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the suspending <a href="../../on-error-suspend.html">errorSideEffect</a> lambda function if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1712160157%2FFunctions%2F-1158666736" anchor-label="onSuccess" id="-1712160157%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-success.html"><span>on</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1712160157%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../on-success.html"><span class="token function">onSuccess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>successSideEffect<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="index.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-success.html">successSideEffect</a> lambda function if the <a href="../index.html">Result</a> contains a successful data payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1046161160%2FFunctions%2F-1158666736" anchor-label="onSuccessSuspend" id="-1046161160%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../on-success-suspend.html"><span>on</span><wbr><span>Success</span><wbr><span><span>Suspend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1046161160%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-success-suspend.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-success-suspend.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../on-success-suspend.html"><span class="token function">onSuccessSuspend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>successSideEffect<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../on-success-suspend.html">A</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../on-success-suspend.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the suspending <a href="../../on-success-suspend.html">successSideEffect</a> lambda function if the <a href="../index.html">Result</a> contains a successful data payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1082946509%2FFunctions%2F-1158666736" anchor-label="recover" id="1082946509%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../recover.html"><span><span>recover</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1082946509%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../recover.html"><span class="token function">recover</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorMapper<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../-stream-error/index.html">StreamError</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../recover.html">A</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Result.Success</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Recovers the error payload by applying the given <a href="../../recover.html">errorMapper</a> function if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="338279848%2FFunctions%2F-1158666736" anchor-label="recoverSuspend" id="338279848%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../recover-suspend.html"><span>recover</span><wbr><span><span>Suspend</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="338279848%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">inline suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover-suspend.html">A</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover-suspend.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../recover-suspend.html"><span class="token function">recoverSuspend</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>errorMapper<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../-stream-error/index.html">StreamError</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../recover-suspend.html">A</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Result.Success</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../recover-suspend.html">A</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Recovers the error payload by applying the given suspending <a href="../../recover-suspend.html">errorMapper</a> function if the <a href="../index.html">Result</a> contains an error payload.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-18910357%2FFunctions%2F-1158666736" anchor-label="streamErrorOrNull" id="-18910357%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../stream-error-or-null.html"><span>stream</span><wbr><span>Error</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-18910357%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../stream-error-or-null.html"><span class="token function">streamErrorOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../-stream-error/index.html">StreamError</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the encapsulated <a href="../../-stream-error/index.html">StreamError</a> if this instance represents <a href="../is-failure.html">Failure</a> or <code class="lang-kotlin">null</code> if it is <a href="../is-success.html">Success</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1153430060%2FFunctions%2F-1158666736" anchor-label="then" id="1153430060%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../then.html"><span><span>then</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1153430060%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">infix inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../then.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../../then.html">U</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../then.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../then.html"><span class="token function">then</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">f<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../then.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../then.html">U</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../then.html">U</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Composition the <a href="../index.html">Result</a> with a given <a href="../index.html">Result</a> from the <a href="../../then.html">f</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1339342241%2FFunctions%2F-1158666736" anchor-label="toUnitResult" id="1339342241%2FFunctions%2F-1158666736" data-filterable-set=":stream-result:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":stream-result:dokkaHtmlPartial/main" data-filterable-set=":stream-result:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-unit-result.html"><span>to</span><wbr><span>Unit</span><wbr><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1339342241%2FFunctions%2F-1158666736"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":stream-result:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../to-unit-result.html"><span class="token function">toUnitResult</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">Result</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a <a href="../index.html">Result</a> of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a> from any type of a <a href="../index.html">Result</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
+
