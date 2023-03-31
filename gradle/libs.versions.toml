@@ -1,0 +1,65 @@
+[versions]
+streamLog = "1.1.3"
+androidGradlePlugin = "7.4.1"
+androidxActivity = "1.4.0"
+androidxAppCompat = "1.4.2"
+androidxMaterial = "1.8.0"
+androidxAnnotation = "1.5.0"
+androidxCore = "1.8.0"
+androidxLifecycle = "2.6.1"
+androidxNavigation = "2.5.0"
+androidxTest = "1.4.0"
+androidxJunit = "1.1.3"
+kotlin = "1.8.10"
+kotlinxCoroutines = "1.6.4"
+kotlinxSerialization = "1.5.0"
+ksp = "1.8.10-1.0.9"
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+moshi="1.14.0"
+spotless = "6.7.0"
+nexusMaven = "1.3.0"
+compatibilityValidator = "0.13.0"
+androidxMacroBenchmark = "1.2.0-alpha12"
+androidxProfileinstaller = "1.3.0"
+androidxUiAutomator = "2.3.0-alpha02"
+
+[libraries]
+stream-log = { group = "io.getstream", name = "stream-log", version.ref = "streamLog" }
+stream-log-android = { group = "io.getstream", name = "stream-log-android", version.ref = "streamLog" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
+androidx-material = { module = "com.google.android.material:material", version.ref = "androidxMaterial" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
+androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTest" }
+androidx-test-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxJunit" }
+androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidxUiAutomator" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+
+moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+spotless-gradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin" }
+nexusPlugin = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexusMaven" }
+kotlinBinaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "compatibilityValidator" }
