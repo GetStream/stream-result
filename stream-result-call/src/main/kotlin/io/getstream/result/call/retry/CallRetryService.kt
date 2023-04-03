@@ -16,8 +16,8 @@
 package io.getstream.result.call.retry
 
 import io.getstream.log.taggedLogger
+import io.getstream.result.Error
 import io.getstream.result.Result
-import io.getstream.result.StreamError
 import kotlinx.coroutines.delay
 
 /**
@@ -27,7 +27,7 @@ import kotlinx.coroutines.delay
  */
 internal class CallRetryService(
   private val retryPolicy: RetryPolicy,
-  private val isPermanent: (StreamError) -> Boolean = { false }
+  private val isPermanent: (Error) -> Boolean = { false }
 ) {
 
   private val logger by taggedLogger("CallRetryService")

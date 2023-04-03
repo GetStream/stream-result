@@ -15,8 +15,8 @@
  */
 package io.getstream.result.call
 
+import io.getstream.result.Error
 import io.getstream.result.Result
-import io.getstream.result.StreamError
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -67,7 +67,7 @@ internal class ZipCall<A : Any, B : Any>(
     return if (this is Result.Success && result is Result.Success) {
       Result.Success(Pair(this.value, result.value))
     } else {
-      Result.Failure(StreamError.GenericError("Cannot combine results because one of them failed."))
+      Result.Failure(Error.GenericError("Cannot combine results because one of them failed."))
     }
   }
 

@@ -52,7 +52,7 @@ dependencies {
 This is a basic model to represent a normalized result from business work. This looks similar to [Kotlin's Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/), but Stream Result was designed to include more information about success and error and support more convenient functionalities to handle results. Result is basically consist of two detailed types below:
 
 - **Result.Success**: This represents your business's successful result, including a `value` property, a generic type of Result.
-- **Result.Failure**: This represents the failed result of your business result and includes a `value` property, the `StreamError` type.
+- **Result.Failure**: This represents the failed result of your business result and includes a `value` property, the `Error` type.
 
 You can simply create each instance of `Result` like the example below:
 
@@ -60,7 +60,7 @@ You can simply create each instance of `Result` like the example below:
 val result0: Result<String> = Result.Success(value = "result")
 
 val result1: Result<String> = Result.Failure(
-  value = StreamError.GenericError(message = "failure")
+  value = Error.GenericError(message = "failure")
 )
 
 val result = result0 then { result1 }
@@ -71,31 +71,31 @@ result.onSuccess {
 }
 ```
 
-## StreamError
+## Error
 
-`Result.Failure` has `StreamError` as a value property, which contains error details of your business work. Basically, `StreamError` consists of three different types of errors below:
+`Result.Failure` has `Error` as a value property, which contains error details of your business work. Basically, `Error` consists of three different types of errors below:
 
-- **StreamError.GenericError**: Represents a normal type of error and only contains an error message.
-- **StreamError.ThrowableError**: Represents an exceptional type of error and contains a message and cause information.
-- **StreamError.NetworkError**: Represents a network error and contains status code, message, and cause information.
+- **Error.GenericError**: Represents a normal type of error and only contains an error message.
+- **Error.ThrowableError**: Represents an exceptional type of error and contains a message and cause information.
+- **Error.NetworkError**: Represents a network error and contains status code, message, and cause information.
 
 You can create each instance like the example below:
 
 ```kotlin
-val streamError: StreamError = StreamError.GenericError(message = "error")
+val error: Error = Error.GenericError(message = "error")
 
 try {
      .. 
 } catch (e: Exception) {
-  val streamError: StreamError = StreamError.ThrowableError(
+  val error: Error = Error.ThrowableError(
     message = e.localizedMessage ?: e.stackTraceToString(), 
     cause = e
   )
 }
 
-val streamError: StreamError = StreamError.NetworkError(
+val error: Error = Error.NetworkError(
   message = "error",
-  streamCode = code,
+  serverErrorCode = code,
   statusCode = statusCode
 )
 ```
@@ -268,9 +268,9 @@ Retry a network request following your `RetryPolicy`.
 
 ```kotlin
 private val retryPolicy = object : RetryPolicy {
-  override fun shouldRetry(attempt: Int, error: StreamError): Boolean = attempt <= 3
+  override fun shouldRetry(attempt: Int, error: Error): Boolean = attempt <= 3
 
-  override fun retryTimeout(attempt: Int, error: StreamError): Int = 3000
+  override fun retryTimeout(attempt: Int, error: Error): Int = 3000
 }
 
 
@@ -282,7 +282,7 @@ val result = posterService.fetchPosterList()
 
 ### Custom Error Parser
 
-You can customize the creating of `StreamError` from an error response according to your backend service by implementing your `ErrorParser` class. You can provide your custom `ErrorParser` to `RetrofitCallAdapterFactory`. If not, it will use a default `ErrorParser`, which uses [Kotlin Serialization](https://kotlinlang.org/docs/serialization.html) to decode json formats.
+You can customize the creating of `Error` from an error response according to your backend service by implementing your `ErrorParser` class. You can provide your custom `ErrorParser` to `RetrofitCallAdapterFactory`. If not, it will use a default `ErrorParser`, which uses [Kotlin Serialization](https://kotlinlang.org/docs/serialization.html) to decode json formats.
 
 ```kotlin
 internal class MyErrorParser : ErrorParser<DefaultErrorResponse> {
@@ -292,12 +292,12 @@ internal class MyErrorParser : ErrorParser<DefaultErrorResponse> {
     // use moshi or something that you can serialize from json response.
   }
 
-  override fun toError(okHttpResponse: Response): StreamError {
-    // build StreamError with a given okHttpResponse.
+  override fun toError(okHttpResponse: Response): Error {
+    // build Error with a given okHttpResponse.
   }
 
-  override fun toError(errorResponseBody: ResponseBody): StreamError {
-    // build StreamError with a given errorResponseBody.
+  override fun toError(errorResponseBody: ResponseBody): Error {
+    // build Error with a given errorResponseBody.
   }
 }
 

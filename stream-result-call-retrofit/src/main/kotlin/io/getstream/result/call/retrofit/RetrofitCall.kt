@@ -15,8 +15,8 @@
  */
 package io.getstream.result.call.retrofit
 
+import io.getstream.result.Error
 import io.getstream.result.Result
-import io.getstream.result.StreamError
 import io.getstream.result.call.Call
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
 import kotlinx.coroutines.CoroutineScope
@@ -65,7 +65,7 @@ public class RetrofitCall<T : Any>(
 
   private fun Throwable.toFailedError(
     message: String
-  ): StreamError = StreamError.ThrowableError(cause = this, message = message)
+  ): Error = Error.ThrowableError(cause = this, message = message)
 
   @Suppress("TooGenericExceptionCaught")
   private suspend fun retrofit2.Call<T>.getResult(): Result<T> =

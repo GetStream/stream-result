@@ -15,13 +15,13 @@
  */
 package io.getstream.result
 
-import io.getstream.result.StreamError.NetworkError.Companion.UNKNOWN_STATUS_CODE
+import io.getstream.result.Error.NetworkError.Companion.UNKNOWN_STATUS_CODE
 import io.getstream.result.internal.StreamHandsOff
 
 /**
  * Represents the generic error model.
  */
-public sealed class StreamError {
+public sealed class Error {
 
   public abstract val message: String
 
@@ -30,7 +30,7 @@ public sealed class StreamError {
    *
    * @param message The message describing the error.
    */
-  public data class GenericError(override val message: String) : StreamError()
+  public data class GenericError(override val message: String) : Error()
 
   /**
    * An error that contains a message and cause.
@@ -39,7 +39,7 @@ public sealed class StreamError {
    * @param cause The [Throwable] associated with the error.
    */
   public data class ThrowableError(override val message: String, public val cause: Throwable) :
-    StreamError() {
+    Error() {
 
     @StreamHandsOff(
       "Throwable doesn't override the equals method;" +
@@ -49,7 +49,7 @@ public sealed class StreamError {
       if (this === other) return true
       if (javaClass != other?.javaClass) return false
 
-      return (other as? StreamError)?.let {
+      return (other as? Error)?.let {
         message == it.message && cause.equalCause(it.extractCause())
       } ?: false
     }
@@ -72,16 +72,16 @@ public sealed class StreamError {
    * An error resulting from the network operation.
    *
    * @param message The message describing the error.
-   * @param streamCode The code returned by the Stream backend.
+   * @param serverErrorCode The error code returned by the backend.
    * @param statusCode HTTP status code or [UNKNOWN_STATUS_CODE] if not available.
    * @param cause The optional [Throwable] associated with the error.
    */
   public data class NetworkError(
     override val message: String,
-    public val streamCode: Int,
+    public val serverErrorCode: Int,
     public val statusCode: Int = UNKNOWN_STATUS_CODE,
     public val cause: Throwable? = null
-  ) : StreamError() {
+  ) : Error() {
 
     @StreamHandsOff(
       "Throwable doesn't override the equals method;" +
@@ -91,7 +91,7 @@ public sealed class StreamError {
       if (this === other) return true
       if (javaClass != other?.javaClass) return false
 
-      return (other as? StreamError)?.let {
+      return (other as? Error)?.let {
         message == it.message && cause.equalCause(it.extractCause())
       } ?: false
     }
@@ -116,29 +116,29 @@ public sealed class StreamError {
 }
 
 /**
- * Copies the original [StreamError] objects with custom message.
+ * Copies the original [Error] objects with custom message.
  *
  * @param message The message to replace.
  *
- * @return New [StreamError] instance.
+ * @return New [Error] instance.
  */
-public fun StreamError.copyWithMessage(message: String): StreamError {
+public fun Error.copyWithMessage(message: String): Error {
   return when (this) {
-    is StreamError.GenericError -> this.copy(message = message)
-    is StreamError.NetworkError -> this.copy(message = message)
-    is StreamError.ThrowableError -> this.copy(message = message)
+    is Error.GenericError -> this.copy(message = message)
+    is Error.NetworkError -> this.copy(message = message)
+    is Error.ThrowableError -> this.copy(message = message)
   }
 }
 
 /**
- * Extracts the cause from [StreamError] object or null if it's not available.
+ * Extracts the cause from [Error] object or null if it's not available.
  *
  * @return The [Throwable] that is the error's cause or null if not available.
  */
-public fun StreamError.extractCause(): Throwable? {
+public fun Error.extractCause(): Throwable? {
   return when (this) {
-    is StreamError.GenericError -> null
-    is StreamError.NetworkError -> cause
-    is StreamError.ThrowableError -> cause
+    is Error.GenericError -> null
+    is Error.NetworkError -> cause
+    is Error.ThrowableError -> cause
   }
 }
