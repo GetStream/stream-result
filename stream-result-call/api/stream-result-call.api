@@ -88,7 +88,7 @@ public final class io/getstream/result/call/dispatcher/CallDispatcherProvider {
 }
 
 public abstract interface class io/getstream/result/call/retry/RetryPolicy {
-	public abstract fun retryTimeout (ILio/getstream/result/StreamError;)I
-	public abstract fun shouldRetry (ILio/getstream/result/StreamError;)Z
+	public abstract fun retryTimeout (ILio/getstream/result/Error;)I
+	public abstract fun shouldRetry (ILio/getstream/result/Error;)Z
 }
 

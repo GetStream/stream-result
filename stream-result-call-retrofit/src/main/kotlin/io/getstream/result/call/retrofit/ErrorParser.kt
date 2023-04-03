@@ -15,7 +15,7 @@
  */
 package io.getstream.result.call.retrofit
 
-import io.getstream.result.StreamError
+import io.getstream.result.Error
 import okhttp3.Response
 import okhttp3.ResponseBody
 
@@ -23,7 +23,7 @@ public interface ErrorParser<T> {
 
   public fun <T : Any> fromJson(raw: String): T
 
-  public fun toError(okHttpResponse: Response): StreamError {
+  public fun toError(okHttpResponse: Response): Error {
     val statusCode: Int = okHttpResponse.code
 
     return try {
@@ -31,38 +31,38 @@ public interface ErrorParser<T> {
       val body = okHttpResponse.peekBody(Long.MAX_VALUE).string()
 
       if (body.isEmpty()) {
-        StreamError.NetworkError(
+        Error.NetworkError(
           message = okHttpResponse.message,
-          streamCode = statusCode,
+          serverErrorCode = statusCode,
           statusCode = statusCode
         )
       } else {
-        StreamError.NetworkError(
-          streamCode = statusCode,
+        Error.NetworkError(
           message = okHttpResponse.message,
+          serverErrorCode = statusCode,
           statusCode = statusCode
         )
       }
     } catch (expected: Throwable) {
-      StreamError.ThrowableError(
+      Error.ThrowableError(
         message = expected.message ?: expected.stackTraceToString(),
         cause = expected
       )
     }
   }
 
-  public fun toError(errorResponseBody: ResponseBody): StreamError {
+  public fun toError(errorResponseBody: ResponseBody): Error {
     return try {
       val errorResponse: DefaultErrorResponse = fromJson(errorResponseBody.string())
       val (code, message, statusCode) = errorResponse
 
-      StreamError.NetworkError(
-        streamCode = code,
+      Error.NetworkError(
+        serverErrorCode = code,
         message = message,
         statusCode = statusCode
       )
     } catch (expected: Throwable) {
-      StreamError.ThrowableError(
+      Error.ThrowableError(
         message = expected.message ?: expected.stackTraceToString(),
         cause = expected
       )

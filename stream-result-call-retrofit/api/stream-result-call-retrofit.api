@@ -1,12 +1,12 @@
 public abstract interface class io/getstream/result/call/retrofit/ErrorParser {
 	public abstract fun fromJson (Ljava/lang/String;)Ljava/lang/Object;
-	public abstract fun toError (Lokhttp3/Response;)Lio/getstream/result/StreamError;
-	public abstract fun toError (Lokhttp3/ResponseBody;)Lio/getstream/result/StreamError;
+	public abstract fun toError (Lokhttp3/Response;)Lio/getstream/result/Error;
+	public abstract fun toError (Lokhttp3/ResponseBody;)Lio/getstream/result/Error;
 }
 
 public final class io/getstream/result/call/retrofit/ErrorParser$DefaultImpls {
-	public static fun toError (Lio/getstream/result/call/retrofit/ErrorParser;Lokhttp3/Response;)Lio/getstream/result/StreamError;
-	public static fun toError (Lio/getstream/result/call/retrofit/ErrorParser;Lokhttp3/ResponseBody;)Lio/getstream/result/StreamError;
+	public static fun toError (Lio/getstream/result/call/retrofit/ErrorParser;Lokhttp3/Response;)Lio/getstream/result/Error;
+	public static fun toError (Lio/getstream/result/call/retrofit/ErrorParser;Lokhttp3/ResponseBody;)Lio/getstream/result/Error;
 }
 
 public final class io/getstream/result/call/retrofit/RetrofitCall : io/getstream/result/call/Call {

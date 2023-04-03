@@ -16,7 +16,7 @@
 package io.getstream.result
 
 /**
- *  A class which encapsulates a successful outcome with a value of type [A] or a failure with [StreamError].
+ *  A class which encapsulates a successful outcome with a value of type [A] or a failure with [Error].
  */
 public sealed class Result<out A : Any> {
 
@@ -52,10 +52,10 @@ public sealed class Result<out A : Any> {
   }
 
   /**
-   * Returns the encapsulated [StreamError] if this instance represents [Failure] [isFailure] or `null`
+   * Returns the encapsulated [Error] if this instance represents [Failure] [isFailure] or `null`
    * if it is [Success] [isSuccess].
    */
-  public fun streamErrorOrNull(): StreamError? = when (this) {
+  public fun errorOrNull(): Error? = when (this) {
     is Success -> null
     is Failure -> value
   }
@@ -70,9 +70,9 @@ public sealed class Result<out A : Any> {
   /**
    * Represents failed result.
    *
-   * @param value The [StreamError] associated with the result.
+   * @param value The [Error] associated with the result.
    */
-  public data class Failure(val value: StreamError) : Result<Nothing>()
+  public data class Failure(val value: Error) : Result<Nothing>()
 
   /**
    * Returns a transformed [Result] of applying the given [f] function if the [Result]
@@ -125,12 +125,12 @@ public sealed class Result<out A : Any> {
   /**
    * Runs the [errorSideEffect] lambda function if the [Result] contains an error payload.
    *
-   * @param errorSideEffect A lambda that receives the [StreamError] payload.
+   * @param errorSideEffect A lambda that receives the [Error] payload.
    *
    * @return The original instance of the [Result].
    */
   public inline fun onError(
-    crossinline errorSideEffect: (StreamError) -> Unit
+    crossinline errorSideEffect: (Error) -> Unit
   ): Result<A> =
     also {
       when (it) {
@@ -195,13 +195,13 @@ public suspend inline fun <A : Any> Result<A>.onSuccessSuspend(
 /**
  * Runs the suspending [errorSideEffect] lambda function if the [Result] contains an error payload.
  *
- * @param errorSideEffect A suspending lambda that receives the [StreamError] payload.
+ * @param errorSideEffect A suspending lambda that receives the [Error] payload.
  *
  * @return The original instance of the [Result].
  */
 @JvmSynthetic
 public suspend inline fun <A : Any> Result<A>.onErrorSuspend(
-  crossinline errorSideEffect: suspend (StreamError) -> Unit
+  crossinline errorSideEffect: suspend (Error) -> Unit
 ): Result<A> =
   also {
     when (it) {
@@ -214,13 +214,13 @@ public suspend inline fun <A : Any> Result<A>.onErrorSuspend(
  * Recovers the error payload by applying the given [errorMapper] function if the [Result]
  * contains an error payload.
  *
- * @param errorMapper A lambda that receives [StreamError] and transforms it as a payload [A].
- * @param errorMapper A lambda that receives [StreamError] and transforms it as a payload [A].
+ * @param errorMapper A lambda that receives [Error] and transforms it as a payload [A].
+ * @param errorMapper A lambda that receives [Error] and transforms it as a payload [A].
  *
  * @return A transformed instance of the [Result] or the original instance of the [Result].
  */
 @JvmSynthetic
-public fun <A : Any> Result<A>.recover(errorMapper: (StreamError) -> A): Result.Success<A> {
+public fun <A : Any> Result<A>.recover(errorMapper: (Error) -> A): Result.Success<A> {
   return when (this) {
     is Result.Success -> this
     is Result.Failure -> Result.Success(errorMapper(value))
@@ -231,13 +231,13 @@ public fun <A : Any> Result<A>.recover(errorMapper: (StreamError) -> A): Result.
  * Recovers the error payload by applying the given suspending [errorMapper] function if the [Result]
  * contains an error payload.
  *
- * @param errorMapper A suspending lambda that receives [StreamError] and transforms it as a payload [A].
+ * @param errorMapper A suspending lambda that receives [Error] and transforms it as a payload [A].
  *
  * @return A transformed instance of the [Result] or the original instance of the [Result].
  */
 @JvmSynthetic
 public suspend inline fun <A : Any> Result<A>.recoverSuspend(
-  crossinline errorMapper: suspend (StreamError) -> A
+  crossinline errorMapper: suspend (Error) -> A
 ): Result.Success<A> {
   return when (this) {
     is Result.Success -> this

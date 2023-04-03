@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.getstream.log.StreamLog
 import io.getstream.log.streamLog
-import io.getstream.result.StreamError
+import io.getstream.result.Error
 import io.getstream.result.call.doOnResult
 import io.getstream.result.call.doOnStart
 import io.getstream.result.call.map
@@ -60,8 +60,8 @@ public class MainViewModel constructor(
   }
 
   private val retryPolicy = object : RetryPolicy {
-    override fun shouldRetry(attempt: Int, error: StreamError): Boolean = attempt <= 3
+    override fun shouldRetry(attempt: Int, error: Error): Boolean = attempt <= 3
 
-    override fun retryTimeout(attempt: Int, error: StreamError): Int = 3000
+    override fun retryTimeout(attempt: Int, error: Error): Int = 3000
   }
 }

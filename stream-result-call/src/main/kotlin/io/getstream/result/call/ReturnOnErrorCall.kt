@@ -15,8 +15,8 @@
  */
 package io.getstream.result.call
 
+import io.getstream.result.Error
 import io.getstream.result.Result
-import io.getstream.result.StreamError
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -33,7 +33,7 @@ import kotlinx.coroutines.withContext
 public class ReturnOnErrorCall<T : Any>(
   private val originalCall: Call<T>,
   scope: CoroutineScope,
-  private val onErrorReturn: suspend (originalError: StreamError) -> Result<T>
+  private val onErrorReturn: suspend (originalError: Error) -> Result<T>
 ) : Call<T> {
 
   private val callScope = scope + SupervisorJob(scope.coroutineContext.job)
