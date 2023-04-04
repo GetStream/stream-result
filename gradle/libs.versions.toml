@@ -11,6 +11,7 @@ androidxNavigation = "2.5.0"
 androidxTest = "1.4.0"
 androidxJunit = "1.1.3"
 kotlin = "1.8.10"
+kluent = "1.72"
 kotlinxCoroutines = "1.6.4"
 kotlinxSerialization = "1.5.0"
 ksp = "1.8.10-1.0.9"
@@ -23,6 +24,9 @@ compatibilityValidator = "0.13.0"
 androidxMacroBenchmark = "1.2.0-alpha12"
 androidxProfileinstaller = "1.3.0"
 androidxUiAutomator = "2.3.0-alpha02"
+junit5 = "5.9.1"
+mockito = "4.9.0"
+mockitoKotlin = "4.0.0"
 
 [libraries]
 stream-log = { group = "io.getstream", name = "stream-log", version.ref = "streamLog" }
@@ -44,6 +48,10 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+testing-kluent = { group = "org.amshove.kluent", name = "kluent", version.ref = "kluent" }
+testing-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+testing-mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+testing-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
 
 moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }

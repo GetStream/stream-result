@@ -41,9 +41,30 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
   )
 }
 
+testing {
+  suites {
+    // Using JVM Test Suite feature to configure our test task.
+    val test by getting(JvmTestSuite::class) {
+      // For JUnit 5 we need to enable JUnit Jupiter.
+      // If we don't specify a version the default
+      // version is used, which is 5.8.2 with Gradle 7.6.
+      // We can use a version as String as argument, but it is even
+      // better to refer to a version from the version catalog,
+      // so all versions for our dependencies are at the
+      // single location of the version catalog.
+      // We define the version in libs.versions.toml.
+      useJUnitJupiter(libs.versions.junit5)
+    }
+  }
+}
+
 dependencies {
   api(project(":stream-result"))
 
   implementation(libs.kotlinx.coroutines)
   implementation(libs.stream.log)
+  testImplementation(libs.testing.kluent)
+  testImplementation(libs.testing.coroutines.test)
+  testImplementation(libs.testing.mockito)
+  testImplementation(libs.testing.mockito.kotlin)
 }
