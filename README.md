@@ -30,7 +30,7 @@ Railway Oriented Programming is a functional approach to handling success and er
 
 You'll find the use cases in the repositories below:
 - [Stream Chat SDK for Android](https://github.com/getStream/stream-chat-android): 💬 Android Chat SDK ➜ Stream Chat API. UI component libraries for chat apps. Kotlin & Jetpack Compose messaging SDK for Android chat.
-- [Stream Video SDK for Android](https://getstream.io/video/): Coming soon!
+- [Stream Video SDK for Android](https://github.com/getStream/stream-video-android): 📲 Android Video SDK. Stream's versatile Core + Compose UI component libraries that allow you to build video calling, audio room, and, live streaming apps based on Webrtc running on Stream's global edge network.
 
 <img align="right" width="90px" src="https://user-images.githubusercontent.com/24237865/178630165-76855349-ac04-4474-8bcf-8eb5f8c41095.png"/>
 
