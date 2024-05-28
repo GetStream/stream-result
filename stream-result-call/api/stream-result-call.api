@@ -26,6 +26,7 @@ public final class io/getstream/result/call/CallKt {
 	public static final fun doOnStart (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
 	public static final fun enqueue (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun enqueue$default (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun flatMap (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
 	public static final fun forceNewRequest (Lio/getstream/result/call/Call;)Lio/getstream/result/call/Call;
 	public static final fun launch (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;)V
 	public static final fun map (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
