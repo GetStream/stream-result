@@ -20,7 +20,7 @@ jobs:
       - name: Release build
         run: ./gradlew assemble --scan
       - name: Source jar and dokka
-        run: ./gradlew androidSourcesJar javadocJar --scan
+        run: ./gradlew javadocJar --scan
       - name: Publish to MavenCentral
         run: ./gradlew publishReleasePublicationToSonatypeRepository --scan
         env:
