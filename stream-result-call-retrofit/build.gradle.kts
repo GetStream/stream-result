@@ -32,6 +32,7 @@ rootProject.extra.apply {
 apply(from ="${rootDir}/scripts/publish-module.gradle")
 
 android {
+  namespace = "io.getstream.result.call.retrofit"
   compileSdk = Configurations.compileSdk
 
   defaultConfig {
