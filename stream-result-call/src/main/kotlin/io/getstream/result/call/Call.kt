@@ -116,6 +116,15 @@ public fun <T : Any, K : Any> Call<T>.map(mapper: (T) -> K): Call<K> {
 }
 
 /**
+ * Flat maps a [Call] type to a transformed [Call].
+ *
+ * @param mapper A lambda for mapping [T] to [Call] of [K].
+ */
+public fun <T : Any, K : Any> Call<T>.flatMap(mapper: (T) -> Call<K>): Call<K> {
+  return FlatMapCall(this, mapper)
+}
+
+/**
  * Zips a [Call] of [T] and a given [call] of [K].
  *
  * @param call [Call] to zip with the given [Call].
