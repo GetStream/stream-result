@@ -27,7 +27,7 @@ subprojects {
   extensions.configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     kotlin {
       target("**/*.kt")
-      targetExclude("$buildDir/**/*.kt")
+      targetExclude("${layout.buildDirectory}/**/*.kt")
       ktlint().setUseExperimental(true).editorConfigOverride(
         mapOf(
           "indent_size" to "2",
@@ -40,7 +40,7 @@ subprojects {
     }
     format("kts") {
       target("**/*.kts")
-      targetExclude("$buildDir/**/*.kts")
+      targetExclude("${layout.buildDirectory}/**/*.kts")
       licenseHeaderFile(rootProject.file("spotless/copyright.kt"), "(^(?![\\/ ]\\*).*$)")
     }
     format("xml") {
