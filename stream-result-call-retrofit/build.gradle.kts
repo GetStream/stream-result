@@ -21,15 +21,21 @@ plugins {
   id(libs.plugins.android.library.get().pluginId)
   id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
+  id(libs.plugins.nexus.plugin.get().pluginId)
 }
 
-rootProject.extra.apply {
-  set("PUBLISH_GROUP_ID", Configurations.artifactGroup)
-  set("PUBLISH_ARTIFACT_ID", "stream-result-call-retrofit")
-  set("PUBLISH_VERSION", rootProject.extra.get("rootVersionName"))
-}
+mavenPublishing {
+  val artifactId = "stream-result-call-retrofit"
+  coordinates(
+    Configurations.artifactGroup,
+    artifactId,
+    Configurations.versionName
+  )
 
-apply(from ="${rootDir}/scripts/publish-module.gradle")
+  pom {
+    name.set(artifactId)
+  }
+}
 
 android {
   namespace = "io.getstream.result.call.retrofit"
@@ -41,12 +47,12 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
   }
 }
 

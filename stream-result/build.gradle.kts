@@ -19,26 +19,71 @@ import io.getstream.Configurations
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-  kotlin("jvm")
+  id(libs.plugins.android.library.get().pluginId)
+  id(libs.plugins.kotlin.multiplatform.get().pluginId)
+  id(libs.plugins.nexus.plugin.get().pluginId)
 }
 
-rootProject.extra.apply {
-  set("PUBLISH_GROUP_ID", Configurations.artifactGroup)
-  set("PUBLISH_ARTIFACT_ID", "stream-result")
-  set("PUBLISH_VERSION", rootProject.extra.get("rootVersionName"))
-}
-
-apply(from ="${rootDir}/scripts/publish-module.gradle")
-
-java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions.freeCompilerArgs += listOf(
-    "-Xexplicit-api=strict"
+mavenPublishing {
+  val artifactId = "stream-result"
+  coordinates(
+    Configurations.artifactGroup,
+    artifactId,
+    Configurations.versionName
   )
+
+  pom {
+    name.set(artifactId)
+  }
+}
+
+kotlin {
+  listOf(
+    iosX64(),
+    iosArm64(),
+    iosSimulatorArm64(),
+    macosArm64(),
+    macosX64(),
+  ).forEach {
+    it.binaries.framework {
+      baseName = "common"
+    }
+  }
+
+  androidTarget {
+    publishLibraryVariants("release")
+  }
+
+  jvm {
+    compilations.all {
+      kotlinOptions.jvmTarget = "11"
+    }
+  }
+
+  applyDefaultHierarchyTemplate()
+
+  sourceSets {
+    all {
+      languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
+      languageSettings.optIn("com.skydoves.sandwich.annotations.InternalSandwichApi")
+    }
+  }
+
+  explicitApi()
+}
+
+android {
+  compileSdk = Configurations.compileSdk
+  namespace = "io.getstream.result"
+  defaultConfig {
+    minSdk = Configurations.minSdk
+    consumerProguardFiles("consumer-proguard-rules.pro")
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+  }
 }
 
 dependencies {

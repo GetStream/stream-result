@@ -19,42 +19,70 @@ import io.getstream.Configurations
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-  kotlin("jvm")
+  id(libs.plugins.android.library.get().pluginId)
+  id(libs.plugins.kotlin.multiplatform.get().pluginId)
+  id(libs.plugins.nexus.plugin.get().pluginId)
 }
 
-rootProject.extra.apply {
-  set("PUBLISH_GROUP_ID", Configurations.artifactGroup)
-  set("PUBLISH_ARTIFACT_ID", "stream-result-call")
-  set("PUBLISH_VERSION", rootProject.extra.get("rootVersionName"))
-}
-
-apply(from ="${rootDir}/scripts/publish-module.gradle")
-
-java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions.freeCompilerArgs += listOf(
-    "-Xexplicit-api=strict"
+mavenPublishing {
+  val artifactId = "stream-result-call"
+  coordinates(
+    Configurations.artifactGroup,
+    artifactId,
+    Configurations.versionName
   )
+
+  pom {
+    name.set(artifactId)
+  }
 }
 
-testing {
-  suites {
-    // Using JVM Test Suite feature to configure our test task.
-    val test by getting(JvmTestSuite::class) {
-      // For JUnit 5 we need to enable JUnit Jupiter.
-      // If we don't specify a version the default
-      // version is used, which is 5.8.2 with Gradle 7.6.
-      // We can use a version as String as argument, but it is even
-      // better to refer to a version from the version catalog,
-      // so all versions for our dependencies are at the
-      // single location of the version catalog.
-      // We define the version in libs.versions.toml.
-      useJUnitJupiter(libs.versions.junit5)
+kotlin {
+  listOf(
+    iosX64(),
+    iosArm64(),
+    iosSimulatorArm64(),
+    macosArm64(),
+    macosX64(),
+  ).forEach {
+    it.binaries.framework {
+      baseName = "common"
     }
+  }
+
+  androidTarget {
+    publishLibraryVariants("release")
+  }
+
+  jvm {
+    compilations.all {
+      kotlinOptions.jvmTarget = "11"
+    }
+  }
+
+  applyDefaultHierarchyTemplate()
+
+  sourceSets {
+    all {
+      languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
+      languageSettings.optIn("com.skydoves.sandwich.annotations.InternalSandwichApi")
+    }
+  }
+
+  explicitApi()
+}
+
+android {
+  compileSdk = Configurations.compileSdk
+  namespace = "io.getstream.result.call"
+  defaultConfig {
+    minSdk = Configurations.minSdk
+    consumerProguardFiles("consumer-proguard-rules.pro")
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
   }
 }
 
