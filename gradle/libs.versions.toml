@@ -1,31 +1,31 @@
 [versions]
 streamLog = "1.1.4"
-androidGradlePlugin = "8.4.1"
+androidGradlePlugin = "8.6.1"
 androidxActivity = "1.4.0"
 androidxAppCompat = "1.7.0"
-androidxMaterial = "1.8.0"
-androidxAnnotation = "1.5.0"
+androidxMaterial = "1.12.0"
+androidxAnnotation = "1.8.2"
 androidxCore = "1.13.1"
-androidxLifecycle = "2.6.1"
+androidxLifecycle = "2.8.5"
 androidxNavigation = "2.5.0"
-androidxTest = "1.5.0"
-androidxJunit = "1.1.3"
-kotlin = "2.0.0"
+androidxTest = "1.6.1"
+androidxJunit = "1.2.1"
+kotlin = "2.0.20"
 dokka = "1.9.0"
 kluent = "1.73"
-kotlinxCoroutines = "1.8.1"
-kotlinxSerialization = "1.6.3"
-ksp = "2.0.0-1.0.21"
+kotlinxCoroutines = "1.9.0"
+kotlinxSerialization = "1.7.1"
+ksp = "2.0.20-1.0.25"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 moshi="1.15.1"
 spotless = "6.7.0"
-nexusMaven = "1.3.0"
-compatibilityValidator = "0.14.0"
+nexusPlugin = "0.26.0"
+compatibilityValidator = "0.16.3"
 androidxMacroBenchmark = "1.2.4"
 androidxProfileinstaller = "1.3.1"
 androidxUiAutomator = "2.3.0"
-junit5 = "5.9.1"
+junit5 = "1.11.0.0"
 mockito = "5.10.0"
 mockitoKotlin = "4.1.0"
 
@@ -67,8 +67,9 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-nexusPlugin = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexusMaven" }
+nexus-plugin = { id = "com.vanniktech.maven.publish", version.ref = "nexusPlugin" }
 kotlinBinaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "compatibilityValidator" }

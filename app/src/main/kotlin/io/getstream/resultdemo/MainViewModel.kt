@@ -25,11 +25,39 @@ import io.getstream.result.call.doOnStart
 import io.getstream.result.call.map
 import io.getstream.result.call.retry
 import io.getstream.result.call.retry.RetryPolicy
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 public class MainViewModel constructor(
   private val posterService: PosterService
 ) : ViewModel() {
+
+  val posters = flow {
+    val posters = posterService.fetchPosterList()
+      // retry if the network request fails.
+      .retry(viewModelScope, retryPolicy)
+      // do something before running the network request.
+      .doOnStart(viewModelScope) {
+        StreamLog.streamLog { "doOnStart" }
+      }
+      // do something after running the network request.
+      .doOnResult(viewModelScope) {
+        StreamLog.streamLog { "doOnResult" }
+      }
+      // map the type of call.
+      .map {
+        StreamLog.streamLog { "map" }
+        it.first()
+      }
+      .await()
+    emit(posters)
+  }.stateIn(
+    scope = viewModelScope,
+    started = SharingStarted.WhileSubscribed(5000),
+    initialValue = emptyList<Poster>()
+  )
 
   fun fetchPosterList() {
     viewModelScope.launch {

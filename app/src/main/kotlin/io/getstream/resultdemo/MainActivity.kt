@@ -16,7 +16,11 @@
 package io.getstream.resultdemo
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,5 +34,12 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     viewModel.fetchPosterList()
+
+    lifecycleScope.launch {
+      viewModel.posters.collectLatest {
+        val textView = findViewById<TextView>(R.id.text)
+        textView.text = it.toString()
+      }
+    }
   }
 }

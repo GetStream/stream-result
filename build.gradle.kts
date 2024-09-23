@@ -4,14 +4,13 @@ plugins {
   alias(libs.plugins.android.library) apply false
   alias(libs.plugins.kotlin.android) apply false
   alias(libs.plugins.kotlin.serialization) apply false
+  alias(libs.plugins.kotlin.multiplatform) apply false
   alias(libs.plugins.ksp) apply false
-  alias(libs.plugins.nexusPlugin)
+  alias(libs.plugins.nexus.plugin) apply false
   alias(libs.plugins.spotless)
   alias(libs.plugins.dokka)
   alias(libs.plugins.kotlinBinaryCompatibilityValidator)
 }
-
-apply(from ="${rootDir}/scripts/publish-root.gradle")
 
 apiValidation {
   ignoredProjects.addAll(listOf("app"))
@@ -20,7 +19,7 @@ apiValidation {
 
 subprojects {
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_11.toString()
   }
 
   apply(plugin = rootProject.libs.plugins.spotless.get().pluginId)
