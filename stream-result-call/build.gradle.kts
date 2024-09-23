@@ -40,17 +40,18 @@ mavenPublishing {
 }
 
 kotlin {
-  listOf(
-    iosX64(),
-    iosArm64(),
-    iosSimulatorArm64(),
-    macosArm64(),
-    macosX64(),
-  ).forEach {
-    it.binaries.framework {
-      baseName = "common"
-    }
-  }
+  // TODO: Migrate Stream Log to KMP
+//  listOf(
+//    iosX64(),
+//    iosArm64(),
+//    iosSimulatorArm64(),
+//    macosArm64(),
+//    macosX64(),
+//  ).forEach {
+//    it.binaries.framework {
+//      baseName = "common"
+//    }
+//  }
 
   androidTarget {
     publishLibraryVariants("release")
