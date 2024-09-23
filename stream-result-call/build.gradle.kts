@@ -35,6 +35,7 @@ mavenPublishing {
 
   pom {
     name.set(artifactId)
+    description.set("Railway-oriented library to easily model and handle success/failure for Kotlin, Android, and Retrofit.")
   }
 }
 
