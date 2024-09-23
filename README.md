@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-🚊 Railway-oriented library to model and handle success/failure easily for Kotlin, Android, and Retrofit.
+🚊 Railway-oriented library to model and handle success/failure easily for Kotlin Multiplatform (Android, iOS, MacOS), and Retrofit for Android.
 </p>
 
 ## What's Railway-Oriented Programming?
