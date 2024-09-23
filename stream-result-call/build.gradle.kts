@@ -68,7 +68,10 @@ kotlin {
   sourceSets {
     all {
       languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
-      languageSettings.optIn("com.skydoves.sandwich.annotations.InternalSandwichApi")
+    }
+    val commonMain by getting {
+      dependencies {
+      }
     }
   }
 
