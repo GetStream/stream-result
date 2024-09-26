@@ -101,6 +101,6 @@ android {
    testImplementation(libs.testing.mockito.kotlin)
    testImplementation(libs.testing.mockito.kotlin)
    testImplementation(libs.androidx.test.junit)
-   testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
+   testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.1")
    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.1")
  }
