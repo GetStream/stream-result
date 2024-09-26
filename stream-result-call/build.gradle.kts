@@ -21,6 +21,7 @@ import io.getstream.Configurations
 plugins {
   id(libs.plugins.android.library.get().pluginId)
   id(libs.plugins.kotlin.multiplatform.get().pluginId)
+  id(libs.plugins.kotlin.atomicfu.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
   id("de.mannodermaus.android-junit5") version "1.11.0.0"
 }
@@ -86,6 +87,8 @@ kotlin {
 
         implementation(libs.kotlinx.coroutines)
         implementation(libs.stream.log)
+
+        api(libs.atomicfu)
       }
     }
   }

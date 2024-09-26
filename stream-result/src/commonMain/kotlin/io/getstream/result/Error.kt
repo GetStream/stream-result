@@ -47,7 +47,7 @@ public sealed class Error {
     )
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      if (javaClass != other?.javaClass) return false
+      if (other != null && this::class != other::class) return false
 
       return (other as? Error)?.let {
         message == it.message && cause.equalCause(it.extractCause())
@@ -89,7 +89,7 @@ public sealed class Error {
     )
     override fun equals(other: Any?): Boolean {
       if (this === other) return true
-      if (javaClass != other?.javaClass) return false
+      if (other != null && this::class != other::class) return false
 
       return (other as? Error)?.let {
         message == it.message && cause.equalCause(it.extractCause())

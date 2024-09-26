@@ -18,6 +18,7 @@ package io.getstream.result.call
 import io.getstream.result.Result
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
 import io.getstream.result.call.internal.SynchronizedReference
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.SupervisorJob
@@ -28,7 +29,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Reusable wrapper around [Call] which delivers a single result to all subscribers.
@@ -41,7 +41,7 @@ public class DistinctCall<T : Any>(
 
   private val distinctScope = scope + SupervisorJob(scope.coroutineContext.job)
   private val deferred = SynchronizedReference<Deferred<Result<T>>>()
-  private val delegateCall = AtomicReference<Call<T>>()
+  private val delegateCall = atomic<Call<T>?>(initial = null)
 
   public fun originCall(): Call<T> = callBuilder()
 
@@ -57,12 +57,11 @@ public class DistinctCall<T : Any>(
     }
   }
 
-  @SuppressWarnings("TooGenericExceptionCaught")
   override suspend fun await(): Result<T> = Call.runCatching {
     deferred.getOrCreate {
       distinctScope.async {
         callBuilder()
-          .also { delegateCall.set(it) }
+          .also { delegateCall.value = it }
           .await()
           .also { doFinally() }
       }
@@ -70,7 +69,7 @@ public class DistinctCall<T : Any>(
   }
 
   override fun cancel() {
-    delegateCall.get()?.cancel()
+    delegateCall.value?.cancel()
     distinctScope.coroutineContext.cancelChildren()
     doFinally()
   }

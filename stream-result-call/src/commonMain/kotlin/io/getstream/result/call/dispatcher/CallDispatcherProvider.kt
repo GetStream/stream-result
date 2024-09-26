@@ -19,6 +19,7 @@ import io.getstream.result.call.dispatcher.CallDispatcherProvider.reset
 import io.getstream.result.call.dispatcher.CallDispatcherProvider.set
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.MainCoroutineDispatcher
 
 /**

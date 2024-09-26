@@ -78,7 +78,6 @@ public interface Call<T : Any> {
     public fun <T : Any> callCanceledError(): Result<T> =
       Result.Failure(Error.GenericError(message = "The call was canceled before complete its execution."))
 
-    @SuppressWarnings("TooGenericExceptionCaught")
     public suspend fun <T : Any> runCatching(
       errorMap: suspend (originalResultError: Result<T>) -> Result<T> = { it },
       block: suspend () -> Result<T>

@@ -15,8 +15,8 @@
  */
 package io.getstream.result.call
 
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -53,27 +53,27 @@ public class SharedCalls : CoroutineContext.Element {
   /**
    * A collection of uncompleted calls.
    */
-  private val calls = ConcurrentHashMap<Int, Call<out Any>>()
+  private val calls = atomic<MutableMap<Int, Call<out Any>>>(initial = mutableMapOf())
 
   /**
    * Provides a [Call] based of specified [identifier] if available.
    */
   internal operator fun get(identifier: Int): Call<out Any>? {
-    return calls[identifier]
+    return calls.value[identifier]
   }
 
   /**
    * Puts a [Call] behind of specified [identifier].
    */
   internal fun put(identifier: Int, value: Call<out Any>) {
-    calls[identifier] = value
+    calls.value[identifier] = value
   }
 
   /**
    * Removes a [Call] based of specified [identifier].
    */
   internal fun remove(identifier: Int) {
-    calls.remove(identifier)
+    calls.value.remove(identifier)
   }
 
   public companion object Key : CoroutineContext.Key<SharedCalls>
