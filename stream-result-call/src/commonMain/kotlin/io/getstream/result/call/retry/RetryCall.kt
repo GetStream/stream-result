@@ -13,67 +13,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.getstream.result.call
+package io.getstream.result.call.retry
 
-import io.getstream.log.taggedLogger
 import io.getstream.result.Result
+import io.getstream.result.call.Call
+import io.getstream.result.call.Call.Companion.callCanceledError
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.yield
 
-public class CoroutineCall<T : Any>(
+/**
+ * A wrapper around [Call] that allows retrying the original call based on
+ * [RetryPolicy].
+ *
+ * @param originalCall The original call.
+ * @param scope Coroutine scope where the call should be run.
+ * @param callRetryService A service responsible for retrying calls based on
+ * [RetryPolicy].
+ */
+internal class RetryCall<T : Any>(
+  private val originalCall: Call<T>,
   private val scope: CoroutineScope,
-  private val suspendingTask: suspend CoroutineScope.() -> Result<T>
+  private val callRetryService: CallRetryService
 ) : Call<T> {
 
-  private val logger by taggedLogger("CoroutineCall")
-
-  private val jobs = hashSetOf<Job>()
+  private var job: Job? = null
+  private val canceled = atomic(false)
 
   override fun execute(): Result<T> = runBlocking { await() }
 
-  override suspend fun await(): Result<T> = Call.runCatching {
-    logger.d { "[await] no args" }
-    withContext(scope.coroutineContext) {
-      jobs.addFrom(coroutineContext)
-      suspendingTask()
-    }
-  }
-
-  override fun cancel() {
-    logger.d { "[cancel] no args" }
-    jobs.cancelAll()
-  }
-
   override fun enqueue(callback: Call.Callback<T>) {
-    logger.d { "[enqueue] no args" }
-    scope.launch {
-      jobs.addFrom(coroutineContext)
-      val result = suspendingTask()
+    job = scope.launch {
+      val result = await()
       withContext(CallDispatcherProvider.Main) {
+        yield()
         callback.onResult(result)
       }
     }
   }
 
-  private fun HashSet<Job>.cancelAll() {
-    synchronized(this) {
-      forEach {
-        it.cancel()
-      }
-      clear()
-    }
+  override fun cancel() {
+    canceled.value = true
+    originalCall.cancel()
+    job?.cancel()
   }
 
-  private fun HashSet<Job>.addFrom(context: CoroutineContext) {
-    synchronized(this) {
-      context[Job]?.also {
-        add(it)
-      }
+  override suspend fun await(): Result<T> = withContext(scope.coroutineContext) {
+    callRetryService.runAndRetry {
+      originalCall
+        .takeUnless { canceled.value }
+        ?.await()
+        ?: callCanceledError()
     }
   }
 }

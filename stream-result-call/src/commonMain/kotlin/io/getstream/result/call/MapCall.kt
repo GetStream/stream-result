@@ -18,19 +18,19 @@ package io.getstream.result.call
 import io.getstream.result.Result
 import io.getstream.result.call.Call.Companion.callCanceledError
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.util.concurrent.atomic.AtomicBoolean
 
 internal class MapCall<T : Any, K : Any>(
   private val call: Call<T>,
   private val mapper: (T) -> K
 ) : Call<K> {
 
-  private val canceled = AtomicBoolean(false)
+  private val canceled = atomic(false)
 
   override fun cancel() {
-    canceled.set(true)
+    canceled.value = true
     call.cancel()
   }
 
@@ -38,7 +38,7 @@ internal class MapCall<T : Any, K : Any>(
 
   override fun enqueue(callback: Call.Callback<K>) {
     call.enqueue {
-      it.takeUnless { canceled.get() }
+      it.takeUnless { canceled.value }
         ?.map(mapper)
         ?.let(callback::onResult)
     }
@@ -46,9 +46,9 @@ internal class MapCall<T : Any, K : Any>(
 
   override suspend fun await(): Result<K> = withContext(CallDispatcherProvider.IO) {
     call.await()
-      .takeUnless { canceled.get() }
+      .takeUnless { canceled.value }
       ?.map(mapper)
-      .takeUnless { canceled.get() }
+      .takeUnless { canceled.value }
       ?: callCanceledError()
   }
 }

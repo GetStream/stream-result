@@ -1,0 +1,95 @@
+public abstract interface class io/getstream/result/call/Call {
+	public static final field Companion Lio/getstream/result/call/Call$Companion;
+	public abstract fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun cancel ()V
+	public abstract fun enqueue ()V
+	public abstract fun enqueue (Lio/getstream/result/call/Call$Callback;)V
+	public abstract fun execute ()Lio/getstream/result/Result;
+}
+
+public abstract interface class io/getstream/result/call/Call$Callback {
+	public abstract fun onResult (Lio/getstream/result/Result;)V
+}
+
+public final class io/getstream/result/call/Call$Companion {
+	public final fun callCanceledError ()Lio/getstream/result/Result;
+	public final fun runCatching (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun runCatching$default (Lio/getstream/result/call/Call$Companion;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class io/getstream/result/call/Call$DefaultImpls {
+	public static fun enqueue (Lio/getstream/result/call/Call;)V
+}
+
+public final class io/getstream/result/call/CallKt {
+	public static final fun doOnResult (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)Lio/getstream/result/call/Call;
+	public static final fun doOnStart (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
+	public static final fun enqueue (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun enqueue$default (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun flatMap (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
+	public static final fun forceNewRequest (Lio/getstream/result/call/Call;)Lio/getstream/result/call/Call;
+	public static final fun launch (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;)V
+	public static final fun map (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
+	public static final fun onErrorReturn (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)Lio/getstream/result/call/ReturnOnErrorCall;
+	public static final fun retry (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lio/getstream/result/call/retry/RetryPolicy;)Lio/getstream/result/call/Call;
+	public static final fun share (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;)Lio/getstream/result/call/Call;
+	public static final fun toUnitCall (Lio/getstream/result/call/Call;)Lio/getstream/result/call/Call;
+	public static final fun withPrecondition (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
+	public static final fun zipWith (Lio/getstream/result/call/Call;Lio/getstream/result/call/Call;)Lio/getstream/result/call/Call;
+}
+
+public final class io/getstream/result/call/CoroutineCall : io/getstream/result/call/Call {
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)V
+	public fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun cancel ()V
+	public fun enqueue ()V
+	public fun enqueue (Lio/getstream/result/call/Call$Callback;)V
+	public fun execute ()Lio/getstream/result/Result;
+}
+
+public final class io/getstream/result/call/DistinctCall : io/getstream/result/call/Call {
+	public fun <init> (Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)V
+	public fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun cancel ()V
+	public fun enqueue ()V
+	public fun enqueue (Lio/getstream/result/call/Call$Callback;)V
+	public fun execute ()Lio/getstream/result/Result;
+	public final fun originCall ()Lio/getstream/result/call/Call;
+}
+
+public final class io/getstream/result/call/ReturnOnErrorCall : io/getstream/result/call/Call {
+	public fun <init> (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)V
+	public fun await (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun cancel ()V
+	public fun enqueue ()V
+	public fun enqueue (Lio/getstream/result/call/Call$Callback;)V
+	public fun execute ()Lio/getstream/result/Result;
+}
+
+public final class io/getstream/result/call/SharedCalls : kotlin/coroutines/CoroutineContext$Element {
+	public static final field Key Lio/getstream/result/call/SharedCalls$Key;
+	public fun <init> ()V
+	public fun fold (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public fun get (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext$Element;
+	public fun getKey ()Lkotlin/coroutines/CoroutineContext$Key;
+	public fun minusKey (Lkotlin/coroutines/CoroutineContext$Key;)Lkotlin/coroutines/CoroutineContext;
+	public fun plus (Lkotlin/coroutines/CoroutineContext;)Lkotlin/coroutines/CoroutineContext;
+}
+
+public final class io/getstream/result/call/SharedCalls$Key : kotlin/coroutines/CoroutineContext$Key {
+}
+
+public final class io/getstream/result/call/dispatcher/CallDispatcherProvider {
+	public static final field INSTANCE Lio/getstream/result/call/dispatcher/CallDispatcherProvider;
+	public final fun getIO ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun getImmediate ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun getMain ()Lkotlinx/coroutines/CoroutineDispatcher;
+	public final fun reset ()V
+	public final fun set (Lkotlinx/coroutines/CoroutineDispatcher;Lkotlinx/coroutines/CoroutineDispatcher;)V
+}
+
+public abstract interface class io/getstream/result/call/retry/RetryPolicy {
+	public abstract fun retryTimeout (ILio/getstream/result/Error;)I
+	public abstract fun shouldRetry (ILio/getstream/result/Error;)Z
+}
+

@@ -17,18 +17,18 @@ package io.getstream.result.call
 
 import io.getstream.result.Result
 import io.getstream.result.flatMapSuspend
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.runBlocking
-import java.util.concurrent.atomic.AtomicBoolean
 
 internal class FlatMapCall<T : Any, K : Any>(
   private val call: Call<T>,
   private val mapper: (T) -> Call<K>
 ) : Call<K> {
-  private val canceled = AtomicBoolean(false)
+  private val canceled = atomic(false)
   private var mappedCall: Call<K>? = null
 
   override fun cancel() {
-    canceled.set(true)
+    canceled.value = true
     call.cancel()
     mappedCall?.cancel()
   }
@@ -37,13 +37,13 @@ internal class FlatMapCall<T : Any, K : Any>(
 
   override fun enqueue(callback: Call.Callback<K>) {
     call.enqueue {
-      it.takeUnless { canceled.get() }
+      it.takeUnless { canceled.value }
         ?.onError { callback.onResult(Result.Failure(it)) }
         ?.onSuccess { value ->
           mapper(value)
             .also { mappedCall = it }
             .enqueue {
-              it.takeUnless { canceled.get() }?.let(callback::onResult)
+              it.takeUnless { canceled.value }?.let(callback::onResult)
             }
         }
     }
@@ -51,11 +51,11 @@ internal class FlatMapCall<T : Any, K : Any>(
 
   override suspend fun await(): Result<K> =
     call.await()
-      .takeUnless { canceled.get() }
+      .takeUnless { canceled.value }
       ?.flatMapSuspend {
         mapper(it)
           .also { mappedCall = it }
-          .takeUnless { canceled.get() }
+          .takeUnless { canceled.value }
           ?.await()
           ?: Call.callCanceledError()
       }

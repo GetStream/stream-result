@@ -15,6 +15,8 @@
  */
 package io.getstream.result
 
+import kotlin.jvm.JvmSynthetic
+
 /**
  *  A class which encapsulates a successful outcome with a value of type [A] or a failure with [Error].
  */

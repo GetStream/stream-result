@@ -15,6 +15,8 @@
  */
 package io.getstream.result.call.internal
 
+import kotlin.concurrent.Volatile
+
 /**
  * An object reference that may be updated thread-safely.
  */
@@ -33,10 +35,8 @@ internal class SynchronizedReference<T : Any>(
    * This method is **thread-safe** and can be safely invoked without external synchronization.
    */
   public fun getOrCreate(builder: () -> T): T {
-    return value ?: synchronized(this) {
-      value ?: builder.invoke().also {
-        value = it
-      }
+    return value ?: value ?: builder.invoke().also {
+      value = it
     }
   }
 
@@ -53,10 +53,8 @@ internal class SynchronizedReference<T : Any>(
    * This method is **thread-safe** and can be safely invoked without external synchronization.
    */
   public fun set(value: T?): T? {
-    synchronized(this) {
-      val currentValue = this.value
-      this.value = value
-      return currentValue
-    }
+    val currentValue = this.value
+    this.value = value
+    return currentValue
   }
 }
