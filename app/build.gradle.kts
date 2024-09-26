@@ -67,5 +67,4 @@ dependencies {
 
   // logger
   implementation(libs.stream.log)
-  implementation(libs.stream.log.android)
 }

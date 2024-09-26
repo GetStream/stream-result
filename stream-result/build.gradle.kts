@@ -67,10 +67,6 @@ kotlin {
     all {
       languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
     }
-    val commonMain by getting {
-      dependencies {
-      }
-    }
   }
 
   explicitApi()

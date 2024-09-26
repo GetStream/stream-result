@@ -16,7 +16,7 @@
 package io.getstream.resultdemo
 
 import android.app.Application
-import io.getstream.log.android.AndroidStreamLogger
+import io.getstream.log.AndroidStreamLogger
 
 class StreamResultApp : Application() {
 
