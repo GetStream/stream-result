@@ -18,9 +18,9 @@ jobs:
           distribution: adopt
           java-version: 17
       - name: Release build
-        run: ./gradlew assemble --scan
-      - name: Source jar and dokka
-        run: ./gradlew javadocJar --scan
+        # assembleRelease for all modules, excluding non-library modules: samples, docs
+        run: ./gradlew assembleRelease -x :app:assembleRelease
+
       - name: Publish to MavenCentral
         run: ./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache
         env:
