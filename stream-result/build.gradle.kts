@@ -39,29 +39,41 @@ mavenPublishing {
 }
 
 kotlin {
-  listOf(
-    iosX64(),
-    iosArm64(),
-    iosSimulatorArm64(),
-    macosArm64(),
-    macosX64(),
-  ).forEach {
-    it.binaries.framework {
-      baseName = "common"
+  androidTarget { publishLibraryVariants("release") }
+  jvm()
+
+  iosX64()
+  iosArm64()
+  iosSimulatorArm64()
+
+  macosX64()
+  macosArm64()
+
+  @Suppress("OPT_IN_USAGE")
+  applyHierarchyTemplate {
+    common {
+      group("android") {
+        withAndroidTarget()
+      }
+      group("jvm") {
+        withJvm()
+      }
+      group("skia") {
+        withJvm()
+        group("apple") {
+          group("ios") {
+            withIosX64()
+            withIosArm64()
+            withIosSimulatorArm64()
+          }
+          group("macos") {
+            withMacosX64()
+            withMacosArm64()
+          }
+        }
+      }
     }
   }
-
-  androidTarget {
-    publishLibraryVariants("release")
-  }
-
-  jvm {
-    compilations.all {
-      kotlinOptions.jvmTarget = "11"
-    }
-  }
-
-  applyDefaultHierarchyTemplate()
 
   sourceSets {
     all {
