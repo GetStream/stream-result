@@ -49,6 +49,18 @@ dependencies {
 }
 ```
 
+If you're targeting on Kotlin Multiplatform, add the dependency below to your module's `build.gradle.kts` file:
+
+```kotlin
+sourceSets {
+    val commonMain by getting {
+        dependencies {
+            implementation("io.getstream:stream-result:$version")
+        }
+    }
+}
+```
+
 ## Result
 
 This is a basic model to represent a normalized result from business work. This looks similar to [Kotlin's Result](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/), but Stream Result was designed to include more information about success and error and support more convenient functionalities to handle results. Result is basically consist of two detailed types below:
