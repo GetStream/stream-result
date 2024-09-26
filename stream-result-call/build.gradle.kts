@@ -40,18 +40,17 @@ mavenPublishing {
 }
 
 kotlin {
-  // TODO: Migrate Stream Log to KMP
-//  listOf(
-//    iosX64(),
-//    iosArm64(),
-//    iosSimulatorArm64(),
-//    macosArm64(),
-//    macosX64(),
-//  ).forEach {
-//    it.binaries.framework {
-//      baseName = "common"
-//    }
-//  }
+  listOf(
+    iosX64(),
+    iosArm64(),
+    iosSimulatorArm64(),
+    macosArm64(),
+    macosX64(),
+  ).forEach {
+    it.binaries.framework {
+      baseName = "common"
+    }
+  }
 
   androidTarget {
     publishLibraryVariants("release")
@@ -69,8 +68,12 @@ kotlin {
     all {
       languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
     }
-    val commonMain by getting {
+    commonMain {
       dependencies {
+        api(project(":stream-result"))
+
+        implementation(libs.kotlinx.coroutines)
+        implementation(libs.stream.log)
       }
     }
   }
@@ -91,18 +94,13 @@ android {
     targetCompatibility = JavaVersion.VERSION_11
   }
 }
-
-dependencies {
-  api(project(":stream-result"))
-
-  implementation(libs.kotlinx.coroutines)
-  implementation(libs.stream.log)
-  testImplementation(libs.testing.kluent)
-  testImplementation(libs.testing.coroutines.test)
-  testImplementation(libs.testing.mockito)
-  testImplementation(libs.testing.mockito.kotlin)
-  testImplementation(libs.testing.mockito.kotlin)
-  testImplementation(libs.androidx.test.junit)
-  testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
-}
+ dependencies {
+   testImplementation(libs.testing.kluent)
+   testImplementation(libs.testing.coroutines.test)
+   testImplementation(libs.testing.mockito)
+   testImplementation(libs.testing.mockito.kotlin)
+   testImplementation(libs.testing.mockito.kotlin)
+   testImplementation(libs.androidx.test.junit)
+   testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
+   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0")
+ }
