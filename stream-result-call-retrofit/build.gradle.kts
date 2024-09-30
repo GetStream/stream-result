@@ -22,6 +22,7 @@ plugins {
   id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
+  id("de.mannodermaus.android-junit5") version "1.11.0.0"
 }
 
 mavenPublishing {
@@ -68,4 +69,13 @@ dependencies {
   implementation(libs.kotlinx.coroutines)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.stream.log)
+
+  testImplementation(libs.testing.kluent)
+  testImplementation(libs.testing.coroutines.test)
+  testImplementation(libs.testing.mockito)
+  testImplementation(libs.testing.mockito.kotlin)
+  testImplementation(libs.testing.mockito.kotlin)
+  testImplementation(libs.androidx.test.junit)
+  testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.1")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.1")
 }
