@@ -1,7 +1,7 @@
 [versions]
 atomicfuVersion = "0.25.0"
 streamLog = "1.3.1"
-androidGradlePlugin = "8.6.1"
+androidGradlePlugin = "8.7.0"
 androidxActivity = "1.4.0"
 androidxAppCompat = "1.7.0"
 androidxMaterial = "1.12.0"
