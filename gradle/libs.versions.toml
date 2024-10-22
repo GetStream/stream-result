@@ -1,5 +1,5 @@
 [versions]
-atomicfuVersion = "0.25.0"
+atomicfuVersion = "0.26.0"
 junitJupiterApi = "5.11.1"
 streamLog = "1.3.1"
 androidGradlePlugin = "8.6.1"
