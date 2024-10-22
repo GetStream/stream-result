@@ -105,8 +105,8 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 }
  dependencies {
@@ -116,6 +116,6 @@ android {
    testImplementation(libs.testing.mockito.kotlin)
    testImplementation(libs.testing.mockito.kotlin)
    testImplementation(libs.androidx.test.junit)
-   testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.3")
-   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.1")
+   testImplementation(libs.junit.jupiter.api)
+   testRuntimeOnly(libs.junit.jupiter.engine)
  }

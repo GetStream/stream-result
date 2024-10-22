@@ -22,6 +22,7 @@ plugins {
   id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
+  id("de.mannodermaus.android-junit5") version "1.11.0.0"
 }
 
 mavenPublishing {
@@ -48,13 +49,10 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
   }
 
-  kotlinOptions {
-    jvmTarget = "11"
-  }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -71,4 +69,13 @@ dependencies {
   implementation(libs.kotlinx.coroutines)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.stream.log)
+
+  testImplementation(libs.testing.kluent)
+  testImplementation(libs.testing.coroutines.test)
+  testImplementation(libs.testing.mockito)
+  testImplementation(libs.testing.mockito.kotlin)
+  testImplementation(libs.testing.mockito.kotlin)
+  testImplementation(libs.androidx.test.junit)
+  testImplementation(libs.junit.jupiter.api)
+  testRuntimeOnly(libs.junit.jupiter.engine)
 }
