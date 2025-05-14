@@ -191,6 +191,15 @@ public fun <T : Any> Call<T>.share(
   return SharedCall(this, identifier, scope)
 }
 
+/**
+ * Create a [Call] from the given [Result].
+ */
+public fun <T : Any> Call<T>.of(
+  result: Result<T>
+): Call<T> {
+  return ResultCall(result)
+}
+
 public fun Call<*>.toUnitCall(): Call<Unit> = map {}
 
 private val onSuccessStub: (Any) -> Unit = {}

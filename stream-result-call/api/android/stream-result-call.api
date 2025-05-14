@@ -30,6 +30,7 @@ public final class io/getstream/result/call/CallKt {
 	public static final fun forceNewRequest (Lio/getstream/result/call/Call;)Lio/getstream/result/call/Call;
 	public static final fun launch (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;)V
 	public static final fun map (Lio/getstream/result/call/Call;Lkotlin/jvm/functions/Function1;)Lio/getstream/result/call/Call;
+	public static final fun of (Lio/getstream/result/call/Call;Lio/getstream/result/Result;)Lio/getstream/result/call/Call;
 	public static final fun onErrorReturn (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)Lio/getstream/result/call/ReturnOnErrorCall;
 	public static final fun retry (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lio/getstream/result/call/retry/RetryPolicy;)Lio/getstream/result/call/Call;
 	public static final fun share (Lio/getstream/result/call/Call;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function0;)Lio/getstream/result/call/Call;
