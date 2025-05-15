@@ -15,6 +15,7 @@
  */
 @file:Suppress("UnstableApiUsage")
 
+import com.vanniktech.maven.publish.AndroidMultiVariantLibrary
 import io.getstream.Configurations
 
 plugins {
@@ -31,6 +32,13 @@ mavenPublishing {
     Configurations.artifactGroup,
     artifactId,
     Configurations.versionName
+  )
+
+  configure(
+    AndroidMultiVariantLibrary(
+      sourcesJar = true,
+      publishJavadocJar = false,
+    )
   )
 
   pom {
