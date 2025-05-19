@@ -23,7 +23,7 @@ plugins {
   id(libs.plugins.kotlin.android.get().pluginId)
   id(libs.plugins.kotlin.serialization.get().pluginId)
   id(libs.plugins.nexus.plugin.get().pluginId)
-  id("de.mannodermaus.android-junit5") version "1.11.2.0"
+  id("de.mannodermaus.android-junit5") version "1.12.2.0"
 }
 
 mavenPublishing {
