@@ -30,7 +30,59 @@ public sealed class Error {
    *
    * @param message The message describing the error.
    */
-  public data class GenericError(override val message: String) : Error()
+  public data class GenericError(override val message: String) : Error() {
+
+    /**
+     * A stable, machine-readable code categorizing the error, or [UNCATEGORIZED] when it has not
+     * been categorized. Read it to branch on the kind of error without matching [message].
+     *
+     * Populated by the SDK at construction via the secondary constructor; immutable afterwards.
+     *
+     * [code] is included in this type's [equals]/[hashCode]/[toString] (implemented manually,
+     * since it is not a primary-constructor property). It is still NOT carried by the generated
+     * [copy] — a copied instance resets to [UNCATEGORIZED]; use [copyWithMessage], which preserves
+     * it.
+     */
+    public var code: Int = UNCATEGORIZED
+      private set
+
+    /**
+     * @param message The message describing the error.
+     * @param code A stable, machine-readable [code] categorizing the error.
+     */
+    public constructor(message: String, code: Int) : this(message) {
+      this.code = code
+    }
+
+    @StreamHandsOff(
+      "'code' is declared in the class body, not the primary constructor, so the generated" +
+        " equals/hashCode/toString would ignore it; they are implemented manually to include it."
+    )
+    override fun equals(other: Any?): Boolean {
+      if (this === other) return true
+      if (other == null || this::class != other::class) return false
+
+      other as GenericError
+      return message == other.message && code == other.code
+    }
+
+    @StreamHandsOff(
+      "'code' is declared in the class body, not the primary constructor, so the generated" +
+        " equals/hashCode/toString would ignore it; they are implemented manually to include it."
+    )
+    override fun hashCode(): Int {
+      return 31 * message.hashCode() + code
+    }
+
+    override fun toString(): String {
+      return "GenericError(message=$message, code=$code)"
+    }
+
+    public companion object {
+      /** Default [code] value, meaning the error has not been categorized. */
+      public const val UNCATEGORIZED: Int = 0
+    }
+  }
 
   /**
    * An error that contains a message and cause.
@@ -124,7 +176,7 @@ public sealed class Error {
  */
 public fun Error.copyWithMessage(message: String): Error {
   return when (this) {
-    is Error.GenericError -> this.copy(message = message)
+    is Error.GenericError -> Error.GenericError(message = message, code = code)
     is Error.NetworkError -> this.copy(message = message)
     is Error.ThrowableError -> this.copy(message = message)
   }

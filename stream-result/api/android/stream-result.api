@@ -3,14 +3,21 @@ public abstract class io/getstream/result/Error {
 }
 
 public final class io/getstream/result/Error$GenericError : io/getstream/result/Error {
+	public static final field Companion Lio/getstream/result/Error$GenericError$Companion;
+	public static final field UNCATEGORIZED I
 	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;I)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lio/getstream/result/Error$GenericError;
 	public static synthetic fun copy$default (Lio/getstream/result/Error$GenericError;Ljava/lang/String;ILjava/lang/Object;)Lio/getstream/result/Error$GenericError;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()I
 	public fun getMessage ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/getstream/result/Error$GenericError$Companion {
 }
 
 public final class io/getstream/result/Error$NetworkError : io/getstream/result/Error {
