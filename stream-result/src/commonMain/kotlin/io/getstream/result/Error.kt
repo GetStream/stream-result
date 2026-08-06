@@ -38,9 +38,10 @@ public sealed class Error {
      *
      * Populated by the SDK at construction via the secondary constructor; immutable afterwards.
      *
-     * Note: [code] is not a primary-constructor property, so it does not take part in the
-     * generated [equals]/[hashCode]/[toString] and is NOT carried by the generated [copy] — a
-     * copied instance resets to [UNCATEGORIZED]. Use [copyWithMessage], which preserves it.
+     * [code] is included in this type's [equals]/[hashCode]/[toString] (implemented manually,
+     * since it is not a primary-constructor property). It is still NOT carried by the generated
+     * [copy] — a copied instance resets to [UNCATEGORIZED]; use [copyWithMessage], which preserves
+     * it.
      */
     public var code: Int = UNCATEGORIZED
       private set
@@ -51,6 +52,30 @@ public sealed class Error {
      */
     public constructor(message: String, code: Int) : this(message) {
       this.code = code
+    }
+
+    @StreamHandsOff(
+      "'code' is declared in the class body, not the primary constructor, so the generated" +
+        " equals/hashCode/toString would ignore it; they are implemented manually to include it."
+    )
+    override fun equals(other: Any?): Boolean {
+      if (this === other) return true
+      if (other == null || this::class != other::class) return false
+
+      other as GenericError
+      return message == other.message && code == other.code
+    }
+
+    @StreamHandsOff(
+      "'code' is declared in the class body, not the primary constructor, so the generated" +
+        " equals/hashCode/toString would ignore it; they are implemented manually to include it."
+    )
+    override fun hashCode(): Int {
+      return 31 * message.hashCode() + code
+    }
+
+    override fun toString(): String {
+      return "GenericError(message=$message, code=$code)"
     }
 
     public companion object {
