@@ -31,7 +31,7 @@ mavenPublishing {
   coordinates(
     Configurations.artifactGroup,
     artifactId,
-    Configurations.versionName
+    project.version.toString()
   )
 
   configure(
