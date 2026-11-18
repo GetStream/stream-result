@@ -32,7 +32,7 @@ android {
     applicationId = "io.getstream.resultdemo"
     minSdk = Configurations.minSdk
     targetSdk = Configurations.targetSdk
-    versionName = Configurations.versionName
+    versionName = project.version.toString()
   }
 
   compileOptions {
