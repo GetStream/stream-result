@@ -15,10 +15,13 @@
  */
 package io.getstream.result.call
 
+import io.getstream.result.Error
 import io.getstream.result.Result
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.`should be equal to`
@@ -116,5 +119,36 @@ internal class CoroutineCallTest {
     result `should be equal to` Call.callCanceledError()
     blockedTask.isStarted() `should be equal to` true
     blockedTask.isCompleted() `should be equal to` false
+  }
+
+  @Test
+  fun `Enqueued Call delivers a thrown exception to the callback as a failure`() = runTest {
+    val callback: Call.Callback<String> = mock()
+    val exception = IllegalStateException("task failed")
+    val call = CoroutineCall<String>(testCoroutines.scope) { throw exception }
+
+    call.enqueue(callback)
+
+    Mockito.verify(callback, only()).onResult(
+      org.mockito.kotlin.check {
+        it `should be equal to` Result.Failure(Error.ThrowableError(message = "", cause = exception))
+      }
+    )
+    testCoroutines.scope.isActive `should be equal to` true
+  }
+
+  @Test
+  fun `Enqueued Call delivers a cancellation thrown by the task as a cancel error`() = runTest {
+    val callback: Call.Callback<String> = mock()
+    val call = CoroutineCall<String>(testCoroutines.scope) { throw CancellationException("task cancelled") }
+
+    call.enqueue(callback)
+
+    Mockito.verify(callback, only()).onResult(
+      org.mockito.kotlin.check {
+        it `should be equal to` Call.callCanceledError()
+      }
+    )
+    testCoroutines.scope.isActive `should be equal to` true
   }
 }
