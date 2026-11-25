@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: { group: github-public-amd64 }
     steps:
       - uses: actions/checkout@v2
       - uses: GetStream/android-ci-actions/actions/setup-java@main
