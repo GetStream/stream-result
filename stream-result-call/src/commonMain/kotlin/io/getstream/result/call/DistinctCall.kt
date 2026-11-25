@@ -17,13 +17,16 @@ package io.getstream.result.call
 
 import io.getstream.result.Result
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
-import io.getstream.result.call.internal.SynchronizedReference
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -34,13 +37,13 @@ import kotlinx.coroutines.withContext
  * Reusable wrapper around [Call] which delivers a single result to all subscribers.
  */
 public class DistinctCall<T : Any>(
-  scope: CoroutineScope,
+  private val scope: CoroutineScope,
   private val callBuilder: () -> Call<T>,
   private val onFinished: () -> Unit
 ) : Call<T> {
 
-  private val distinctScope = scope + SupervisorJob(scope.coroutineContext.job)
-  private val deferred = SynchronizedReference<Deferred<Result<T>>>()
+  private val distinctScope = atomic(newDistinctScope())
+  private val deferred = atomic<Deferred<Result<T>>?>(initial = null)
   private val delegateCall = atomic<Call<T>?>(initial = null)
 
   public fun originCall(): Call<T> = callBuilder()
@@ -48,7 +51,7 @@ public class DistinctCall<T : Any>(
   override fun execute(): Result<T> = runBlocking { await() }
 
   override fun enqueue(callback: Call.Callback<T>) {
-    distinctScope.launch {
+    liveScope().launch {
       await().takeUnless { it.isCanceled }?.also { result ->
         withContext(CallDispatcherProvider.Main) {
           callback.onResult(result)
@@ -58,27 +61,61 @@ public class DistinctCall<T : Any>(
   }
 
   override suspend fun await(): Result<T> = Call.runCatching {
-    deferred.getOrCreate {
-      distinctScope.async {
-        callBuilder()
-          .also { delegateCall.value = it }
-          .await()
-          .also { doFinally() }
-      }
-    }.await()
+    currentOrStartExecution().await()
   }
 
   override fun cancel() {
     delegateCall.value?.cancel()
-    distinctScope.coroutineContext.cancelChildren()
-    doFinally()
+    distinctScope.value.coroutineContext.cancelChildren()
+    deferred.value?.let(::finish)
   }
 
-  private fun doFinally() {
-    if (deferred.reset()) {
+  private fun currentOrStartExecution(): Deferred<Result<T>> {
+    while (true) {
+      val current = deferred.value
+      if (current != null && !current.isCancelled) return current
+      val execution = liveScope().async(start = CoroutineStart.LAZY) {
+        callBuilder()
+          .also { delegateCall.value = it }
+          .await()
+          .also { finish(coroutineContext.job) }
+      }
+      // A still-cancelling execution would only hand this subscriber a cancellation, so it's replaced without
+      // calling onFinished: the call keeps running and must stay registered.
+      if (deferred.compareAndSet(current, execution)) {
+        // Cancelling the parent scope ends the execution without reaching the finish() above.
+        execution.invokeOnCompletion { finish(execution) }
+        execution.start()
+        return execution
+      }
+      execution.cancel()
+    }
+  }
+
+  /**
+   * Clears [execution] and notifies [onFinished] if it is still the current one. A replaced execution never notifies.
+   */
+  private fun finish(execution: Job) {
+    val current = deferred.value
+    if (current === execution && deferred.compareAndSet(current, null)) {
       onFinished()
     }
   }
+
+  /**
+   * A cancelled parent scope cancels the distinct scope for good, so later subscribers get a fresh one.
+   */
+  private fun liveScope(): CoroutineScope {
+    val current = distinctScope.value
+    if (current.isActive || !scope.isActive) return current
+    val fresh = newDistinctScope()
+    if (distinctScope.compareAndSet(current, fresh)) return fresh
+    // Detaches the losing job from the parent.
+    fresh.cancel()
+    return distinctScope.value
+  }
+
+  private fun newDistinctScope(): CoroutineScope = scope + SupervisorJob(scope.coroutineContext.job)
 
   private val Result<T>.isCanceled get() = this == Call.callCanceledError<T>()
 }

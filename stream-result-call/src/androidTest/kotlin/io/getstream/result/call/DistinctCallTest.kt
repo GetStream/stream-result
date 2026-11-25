@@ -16,10 +16,18 @@
 package io.getstream.result.call
 
 import io.getstream.result.Result
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.job
+import kotlinx.coroutines.plus
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
 import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
@@ -163,6 +171,102 @@ internal class DistinctCallTest {
     }
     verify(onFinished, times(1)).invoke()
     spyCallBuilder.`should be invoked once`()
+  }
+
+  @Test
+  fun `Cancelling the parent scope of a pending Call should finish it and run again for new subscribers`() = runTest {
+    val parentScope = testCoroutines.scope + SupervisorJob()
+    val blockedCall = BlockedCall(validResult)
+    val spyCallBuilder = SpyCallBuilder(blockedCall)
+    val previousCallback: Call.Callback<String> = mock()
+    val callback: Call.Callback<String> = mock()
+    val onFinished: () -> Unit = mock()
+    val call = DistinctCall(scope = parentScope, callBuilder = spyCallBuilder, onFinished)
+
+    call.enqueue(previousCallback)
+    delay(10)
+    parentScope.coroutineContext.job.cancelChildren()
+    verify(onFinished, times(1)).invoke()
+
+    spyCallBuilder.reset()
+    blockedCall.uncancel()
+    blockedCall.unblock()
+    call.enqueue(callback)
+    delay(10)
+
+    verify(previousCallback, never()).onResult(any())
+    verify(callback, times(1)).onResult(eq(validResult))
+    verify(onFinished, times(2)).invoke()
+    spyCallBuilder.`should be invoked once`()
+  }
+
+  @Test
+  fun `Cancelling the parent scope before the first execution should not break the Call`() = runTest {
+    val parentScope = testCoroutines.scope + SupervisorJob()
+    val blockedCall = BlockedCall(validResult).apply { unblock() }
+    val callback: Call.Callback<String> = mock()
+    val onFinished: () -> Unit = mock()
+    val call = DistinctCall(scope = parentScope, callBuilder = SpyCallBuilder(blockedCall), onFinished)
+
+    parentScope.coroutineContext.job.cancelChildren()
+    call.enqueue(callback)
+    delay(10)
+
+    verify(callback, times(1)).onResult(eq(validResult))
+    verify(onFinished, times(1)).invoke()
+    call.await() `should be equal to` validResult
+  }
+
+  @Test
+  fun `A subscriber arriving while the previous execution is still cancelling should get a fresh result`() = runTest {
+    val parentScope = testCoroutines.scope + SupervisorJob()
+    val slowToCancelCall = SlowToCancelCall(validResult)
+    val freshCall = BlockedCall(validResult)
+    val calls = mutableListOf<Call<String>>(slowToCancelCall, freshCall)
+    val previousCallback: Call.Callback<String> = mock()
+    val callback: Call.Callback<String> = mock()
+    val onFinished: () -> Unit = mock()
+    val call = DistinctCall(scope = parentScope, callBuilder = { calls.removeAt(0) }, onFinished)
+
+    call.enqueue(previousCallback)
+    delay(10)
+    parentScope.coroutineContext.job.cancelChildren()
+    call.enqueue(callback)
+    delay(10)
+    slowToCancelCall.release()
+    delay(10)
+    // Read before unblocking, so a failure can't leave the call blocked.
+    val finishedWhileReplacementRuns = Mockito.mockingDetails(onFinished).invocations.size
+    freshCall.unblock()
+    delay(10)
+
+    // The replacement was still running, so the call had to stay registered.
+    finishedWhileReplacementRuns `should be equal to` 0
+    verify(callback, times(1)).onResult(eq(validResult))
+    verify(previousCallback, never()).onResult(any())
+    verify(onFinished, times(1)).invoke()
+  }
+
+  /**
+   * Ignores cancellation until [release] is called, like a blocking network call.
+   */
+  private class SlowToCancelCall<T : Any>(private val result: Result<T>) : Call<T> {
+    private val released = CompletableDeferred<Unit>()
+
+    fun release() {
+      released.complete(Unit)
+    }
+
+    override fun execute(): Result<T> = runBlocking { await() }
+
+    override fun enqueue(callback: Call.Callback<T>) = Unit
+
+    override suspend fun await(): Result<T> = withContext(NonCancellable) {
+      released.await()
+      result
+    }
+
+    override fun cancel() = Unit
   }
 
   private fun <T : Any, R> DistinctCall<T>.asyncRun(function: suspend DistinctCall<T>.() -> R): List<Deferred<R>> =
