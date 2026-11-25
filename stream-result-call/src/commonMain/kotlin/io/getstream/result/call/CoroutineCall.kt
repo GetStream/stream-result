@@ -53,7 +53,7 @@ public class CoroutineCall<T : Any>(
     logger.d { "[enqueue] no args" }
     scope.launch {
       jobs.addFrom(coroutineContext)
-      val result = suspendingTask()
+      val result = Call.runCatching { suspendingTask() }
       withContext(CallDispatcherProvider.Main) {
         callback.onResult(result)
       }
