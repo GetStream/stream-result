@@ -87,7 +87,7 @@ public interface Call<T : Any> {
       errorMap(t.toResult())
     }
 
-    internal fun <T : Any> Throwable.toResult(): Result<T> = when (this) {
+    private fun <T : Any> Throwable.toResult(): Result<T> = when (this) {
       is CancellationException -> callCanceledError()
       else -> Result.Failure(Error.ThrowableError(message = "", cause = this))
     }

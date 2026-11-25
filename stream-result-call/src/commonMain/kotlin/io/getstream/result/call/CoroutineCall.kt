@@ -20,7 +20,6 @@ import io.getstream.result.Result
 import io.getstream.result.call.dispatcher.CallDispatcherProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -54,24 +53,11 @@ public class CoroutineCall<T : Any>(
     logger.d { "[enqueue] no args" }
     scope.launch {
       jobs.addFrom(coroutineContext)
-      val result = runTask()
+      val result = Call.runCatching { suspendingTask() }
       withContext(CallDispatcherProvider.Main) {
         callback.onResult(result)
       }
     }
-  }
-
-  /**
-   * Runs the task, delivering a thrown exception as the same failure [await] returns, instead of letting it escape
-   * to [scope]. A canceled call ends without reaching its callback.
-   */
-  @Suppress("TooGenericExceptionCaught")
-  private suspend fun CoroutineScope.runTask(): Result<T> = try {
-    suspendingTask()
-  } catch (t: Throwable) {
-    ensureActive()
-    logger.e(t) { "[enqueue] the task failed" }
-    with(Call) { t.toResult() }
   }
 
   private fun HashSet<Job>.cancelAll() {
