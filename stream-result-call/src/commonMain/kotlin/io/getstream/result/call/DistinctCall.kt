@@ -24,6 +24,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
@@ -71,18 +72,17 @@ public class DistinctCall<T : Any>(
 
   private fun currentOrStartExecution(): Deferred<Result<T>> {
     while (true) {
-      deferred.value?.let { current ->
-        if (!current.isCancelled) return current
-        // An execution that is still cancelling would only hand this subscriber a cancellation.
-        finish(current)
-      }
+      val current = deferred.value
+      if (current != null && !current.isCancelled) return current
       val execution = liveScope().async(start = CoroutineStart.LAZY) {
         callBuilder()
           .also { delegateCall.value = it }
           .await()
           .also { finish(coroutineContext.job) }
       }
-      if (deferred.compareAndSet(null, execution)) {
+      // A still-cancelling execution would only hand this subscriber a cancellation, so it's replaced without
+      // calling onFinished: the call keeps running and must stay registered.
+      if (deferred.compareAndSet(current, execution)) {
         // Cancelling the parent scope ends the execution without reaching the finish() above.
         execution.invokeOnCompletion { finish(execution) }
         execution.start()
@@ -93,7 +93,7 @@ public class DistinctCall<T : Any>(
   }
 
   /**
-   * Clears [execution] and notifies [onFinished], at most once per execution.
+   * Clears [execution] and notifies [onFinished] if it is still the current one. A replaced execution never notifies.
    */
   private fun finish(execution: Job) {
     val current = deferred.value
@@ -109,7 +109,10 @@ public class DistinctCall<T : Any>(
     val current = distinctScope.value
     if (current.isActive || !scope.isActive) return current
     val fresh = newDistinctScope()
-    return if (distinctScope.compareAndSet(current, fresh)) fresh else distinctScope.value
+    if (distinctScope.compareAndSet(current, fresh)) return fresh
+    // Detaches the losing job from the parent.
+    fresh.cancel()
+    return distinctScope.value
   }
 
   private fun newDistinctScope(): CoroutineScope = scope + SupervisorJob(scope.coroutineContext.job)

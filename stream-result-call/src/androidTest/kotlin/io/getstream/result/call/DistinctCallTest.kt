@@ -221,7 +221,8 @@ internal class DistinctCallTest {
   fun `A subscriber arriving while the previous execution is still cancelling should get a fresh result`() = runTest {
     val parentScope = testCoroutines.scope + SupervisorJob()
     val slowToCancelCall = SlowToCancelCall(validResult)
-    val calls = mutableListOf<Call<String>>(slowToCancelCall, BlockedCall(validResult).apply { unblock() })
+    val freshCall = BlockedCall(validResult)
+    val calls = mutableListOf<Call<String>>(slowToCancelCall, freshCall)
     val previousCallback: Call.Callback<String> = mock()
     val callback: Call.Callback<String> = mock()
     val onFinished: () -> Unit = mock()
@@ -234,10 +235,16 @@ internal class DistinctCallTest {
     delay(10)
     slowToCancelCall.release()
     delay(10)
+    // Read before unblocking, so a failure can't leave the call blocked.
+    val finishedWhileReplacementRuns = Mockito.mockingDetails(onFinished).invocations.size
+    freshCall.unblock()
+    delay(10)
 
+    // The replacement was still running, so the call had to stay registered.
+    finishedWhileReplacementRuns `should be equal to` 0
     verify(callback, times(1)).onResult(eq(validResult))
     verify(previousCallback, never()).onResult(any())
-    verify(onFinished, times(2)).invoke()
+    verify(onFinished, times(1)).invoke()
   }
 
   /**
