@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   publish:
-    uses: GetStream/stream-build-conventions-android/.github/workflows/release.yml@500ef3b1a9a1823213f37cf269ef409042f7c7d2 # v1.2.0
+    uses: GetStream/stream-build-conventions-android/.github/workflows/release.yml@178f8ddfa4c28ba19ba66c1c54f9091b00ef6c40 # v1.5.0
     with:
       release-bot-client-id: ${{ vars.ANDROID_RELEASE_BOT_CLIENT_ID }}
       bump: ${{ inputs.bump }}
